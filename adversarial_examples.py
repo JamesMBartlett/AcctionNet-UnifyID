@@ -86,7 +86,7 @@ def get_args():
     parser.add_argument('--data', help="name of data file")
     parser.add_argument('--epsilon', type=float, help="epsilon for fgsm attack")
     parser.add_argument('--mode', type=str, help="mode to run either single or plots")
-    parser.add_argument('--attack')
+    parser.add_argument('--attack', default="fgsm", help="type of attack to run")
     return parser.parse_args()
 
 if __name__ == '__main__':
