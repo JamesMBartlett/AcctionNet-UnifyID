@@ -53,7 +53,7 @@ def mnist_GADF(img_rows=200, img_cols=4, channels=1, nb_classes=13, GAF_type='GA
     return model
 
 
-def FCNN(img_rows=200, img_cols=4, channels=1 nb_classes=13):
+def FCNN(img_rows=200, img_cols=4, channels=1, nb_classes=13):
     """
     Fully Connected Model
     Runs on input tensor of shape Nximg_rowsximg_colsxchannals

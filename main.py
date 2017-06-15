@@ -17,7 +17,7 @@ KTF.set_session(tf.Session(config=tf.ConfigProto(allow_soft_placement=True,
             gpu_options=tf.GPUOptions(per_process_gpu_memory_fraction=0.8, allow_growth=True),
                                                  log_device_placement=False)))
 
-def train(filename, model_name, model=mnist_preprocessed, nb_epoch=100, data=None, channels=8, **kwargs):
+def train(filename, model_name, model=conv_preprocessed, nb_epoch=100, data=None, channels=8, **kwargs):
     # load data
     if data:
         X_train, X_test, y_train, y_test, labels, _ = data
@@ -58,7 +58,7 @@ def train(filename, model_name, model=mnist_preprocessed, nb_epoch=100, data=Non
 
     # save model
     model.save("%s.h5" % model_name)
-    model.save_weights("%s_weights")
+    model.save_weights("%s_weights" % model_name)
 
     # print model evaluation
     score = model.evaluate(X_test, y_test, verbose=0)
@@ -67,7 +67,7 @@ def train(filename, model_name, model=mnist_preprocessed, nb_epoch=100, data=Non
 
     return score
 
-def cross_validate(filename, model_name, model=mnist_preprocessed, nb_epoch=100, channels=8,**kwargs):
+def cross_validate(filename, model_name, model=conv_preprocessed, nb_epoch=100, channels=8,**kwargs):
     nb_validate = 30
     scores = []
     data = Data(filename)
@@ -86,13 +86,10 @@ def get_args():
     parser = ArgumentParser(description="Train various models on IMU-MEMS data")
     parser.add_argument('--name', help="name to use when saving models")
     parser.add_argument('--model', help="exact name of function to get model from")
-    parser.add_argument('--data_file', nargs='+', help="name of file to load
-                        data from")
+    parser.add_argument('--data_file', help="name of file to load data from")
     parser.add_argument('--nb_e', help='number of epochs to run', type=int)
-    parser.add_argument('--cross_validate', action='store_true', help="flag for
-                        whether to cross validate")
-    parser.add_argument('--channels', type=int, help="number of channels in
-                        input data")
+    parser.add_argument('--cross_validate', action='store_true', help="flag for whether to cross validate")
+    parser.add_argument('--channels', type=int, help="number of channels in input data")
     args = parser.parse_args()
     return args
 
@@ -107,16 +104,16 @@ def main(args):
     else:
         channels = 4
 
-    if args.cross_validate and args.model and args.filename:
+    if args.cross_validate and args.model and args.data_file:
         model = globals()[args.model]
         print("cross validating")
-        cross_validate(args.filename, args.name, model, nb_epoch=nb_epoch,
+        cross_validate(args.data_file, args.name, model, nb_epoch=nb_epoch,
                        channels=channels)
 
-    elif args.model and args.filename:
+    elif args.model and args.data_file:
         print("training")
         model = globals()[args.model]
-        train(args.filename, args.name, model, nb_epoch=nb_epoch, channels=channels)
+        train(args.data_file, args.name, model, nb_epoch=nb_epoch, channels=channels)
 
 
 
