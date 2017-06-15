@@ -1,6 +1,8 @@
 ## This code was borrowed from the original authors of the
 # GASDF/MTF paper github link:
 # https://github.com/cauchyturing/Imaging-time-series-to-improve-classification-and-imputation
+import numpy as np
+import pandas as pd
 
 #PAA function
 def paa(series, now, opw):

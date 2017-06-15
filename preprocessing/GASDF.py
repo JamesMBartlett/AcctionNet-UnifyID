@@ -1,4 +1,5 @@
 from GAF_MTF_utils import *
+import numpy as np
 
 def GAF(img, rescale_type='zero', GAF_type='GADF', paa_size=64):
     output_img = np.array([None] * img.shape[-1] * paa_size * paa_size, dtype=float)
@@ -11,7 +12,6 @@ def GAF(img, rescale_type='zero', GAF_type='GADF', paa_size=64):
         else:
             raise Exception("Unknown rescaling type")
         paacos = np.array(paa(std_data, paa_size, None))
-        paacos = np.array(std_data)
         paasin = np.sqrt(1-paacos**2)
         paacos = np.matrix(paacos)
         paasin = np.matrix(paasin)

@@ -1,4 +1,5 @@
 from GAF_MTF_utils import *
+import numpy as np
 
 def MTF(X, paa_size=64, Q=16):
     output_imgs = np.array([None] * X.shape[0] * paa_size * paa_size * X.shape[-1], dtype=float)
