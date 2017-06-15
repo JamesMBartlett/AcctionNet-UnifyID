@@ -3,7 +3,9 @@ import numpy as np
 class Data:
     """
     Convenience class for loading in data from npz file
-    to load data run Data(filename).get_data()
+    To load data run Data(filename).get_data()
+	To save data run
+	Data(filename, *data).write_csvs()
     """
     def __init__(self, name, X_train=None, X_test=None, y_train=None, y_test=None, labels=None):
         self.X_train = X_train
