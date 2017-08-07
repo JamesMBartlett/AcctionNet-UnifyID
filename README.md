@@ -1,4 +1,4 @@
-# ActNet Code
+# AcctionNet Code
 
 Code from paper accepted to ICML 2017 time series workshop
 Arxiv link: coming soon
